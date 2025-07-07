@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Agro Link</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4CAF50;       /* Fresh Leaf Green */
+            --primary-dark: #3e8e41;  /* Darker Green */
+            --secondary: #8D6E63;     /* Soil Brown */
+            --accent: #FFEB3B;       /* Harvest Yellow */
+            --background: #FAFAFA;    /* Soft White */
+            --text: #212121;         /* Dark Charcoal */
+            --text-light: #757575;    /* Light Text */
+            --action: #25D366;       /* WhatsApp Green */
+            --out-of-stock: #F44336; /* Red for out of stock */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            transition: all 0.5s ease-in-out;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1586771107445-d3ca888129ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 1rem auto;
+        }
+        
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+        
+        .about-img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-img:hover {
+            transform: scale(1.02);
+        }
+        
+        .about-content h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        
+        .card {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        .why-choose-us {
+            background-color: white;
+            padding: 4rem 2rem;
+            margin: 5rem 0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+        
+        .why-choose-us .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        .why-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .why-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .why-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .why-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .why-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .why-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .team-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 2rem;
+        }
+        
+        .team-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+        
+        .team-info p {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        
+        .value-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .value-text h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        .value-text p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .footer-social a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links h3, 
+        .footer-contact h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-links h3::after,
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.3rem 0;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .footer-contact p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+        
+        .footer-contact i {
+            margin-top: 3px;
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.5s ease-in-out;
+                z-index: 1000;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .nav-active {
+                right: 0;
+            }
+            
+            .hamburger-active .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .hamburger-active .line2 {
+                opacity: 0;
+            }
+            
+            .hamburger-active .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .hero {
+                height: 50vh;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .card, 
+            .why-card,
+            .value-card {
+                padding: 1.5rem;
+            }
+            
+            .why-choose-us {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo"><i class="fas fa-leaf"></i>Agro Link</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="products.html">Produce Listings</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>About Agro Link</h1>
+            <p>Connecting farmers directly to buyers for a sustainable agricultural future in Ghana</p>
+        </section>
+
+        <section class="container">
+            <div class="about-section">
+                <div class="about-content">
+                    <h2>Our Story</h2>
+                    <p>Agro Link was founded in 2023 by a team of agricultural enthusiasts and tech innovators who recognized the challenges faced by local farmers in Ghana. We noticed that while small-scale farmers produced high-quality crops, they often struggled to find reliable markets and fair prices for their produce.</p>
+                    <p>At the same time, buyers including restaurants, markets, and individual consumers were having difficulty accessing fresh, locally grown products directly from farmers. The existing supply chain was inefficient, with too many middlemen reducing farmers' profits while increasing costs for buyers.</p>
+                    <p>What began as a small pilot project connecting 20 farmers in the Ashanti Region with buyers in Kumasi has now grown into a nationwide platform serving over 5,000 farmers and 10,000 buyers across all 16 regions of Ghana.</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Farmers working" class="about-img">
+            </div>
+
+            <div class="mission-vision">
+                <div class="card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Our Mission</h3>
+                    <p>To revolutionize Ghana's agricultural sector by creating direct connections between farmers and buyers through innovative technology, ensuring fair prices for farmers and fresh, affordable produce for buyers while promoting sustainable farming practices.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Our Vision</h3>
+                    <p>To become Ghana's leading agricultural marketplace where every farmer has equal access to profitable markets, every buyer can easily source fresh local produce, and where technology drives efficiency, transparency and growth across the entire agricultural value chain.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-choose-us">
+            <div class="container">
+                <h2 class="section-title">Why Choose Agro Link</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: var(--text-light);">We're transforming agricultural trade in Ghana through innovation, transparency and commitment to our farming communities</p>
+                
+                <div class="why-cards">
+                    <div class="why-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Direct Farmer Connections</h3>
+                        <p>Buy directly from farmers with no middlemen, ensuring fair prices for farmers and competitive prices for buyers while maintaining full transparency in the supply chain.</p>
+                    </div>
+                    <div class="why-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Easy-to-Use Platform</h3>
+                        <p>Our simple, intuitive platform works on any device, making it easy for farmers to list their produce and for buyers to find exactly what they need.</p>
+                    </div>
+                    <div class="why-card">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Quality Assurance</h3>
+                        <p>We verify all farmers and their produce, ensuring you get fresh, high-quality products that meet your specifications every time.</p>
+                    </div>
+                    <div class="why-card">
+                        <i class="fas fa-truck"></i>
+                        <h3>Logistics Support</h3>
+                        <p>Our network of trusted logistics partners helps arrange transportation for your purchases, with options to suit every budget and timeline.</p>
+                    </div>
+                    <div class="why-card">
+                        <i class="fas fa-lock"></i>
+                        <h3>Secure Transactions</h3>
+                        <p>While we facilitate direct communication, we also offer secure payment options to protect both buyers and farmers in every transaction.</p>
+                    </div>
+                    <div class="why-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Market Insights</h3>
+                        <p>Access real-time market data and trends to make informed decisions about pricing and inventory management.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="team-section">
+                <h2 class="section-title">Meet Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Kwame Asante" class="team-img">
+                        <div class="team-info">
+                            <h3>Kwame Asante</h3>
+                            <p>Founder & CEO</p>
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem;">Agricultural economist with 15 years experience in rural development</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Ama Serwaa" class="team-img">
+                        <div class="team-info">
+                            <h3>Ama Serwaa</h3>
+                            <p>Head of Farmer Relations</p>
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem;">Former extension officer with deep connections in farming communities</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Yaw Boateng" class="team-img">
+                        <div class="team-info">
+                            <h3>Yaw Boateng</h3>
+                            <p>Technology Lead</p>
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem;">Software engineer specializing in agricultural tech solutions</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Adwoa Mensah" class="team-img">
+                        <div class="team-info">
+                            <h3>Adwoa Mensah</h3>
+                            <p>Marketing Director</p>
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem;">Digital marketing expert with focus on agricultural products</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="values-section">
+                <h2 class="section-title">Our Core Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-seedling"></i></div>
+                        <div class="value-text">
+                            <h3>Sustainability</h3>
+                            <p>We promote and support farming practices that protect our environment, conserve natural resources, and ensure long-term agricultural productivity for future generations.</p>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-users"></i></div>
+                        <div class="value-text">
+                            <h3>Community</h3>
+                            <p>We believe in building strong, mutually beneficial relationships between farmers, buyers, and local communities to create shared prosperity.</p>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="value-text">
+                            <h3>Innovation</h3>
+                            <p>We constantly seek creative solutions and leverage technology to improve efficiency, transparency, and accessibility in agricultural value chains.</p>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-balance-scale"></i></div>
+                        <div class="value-text">
+                            <h3>Fairness</h3>
+                            <p>We ensure equitable treatment for all stakeholders, with fair prices for farmers and fair deals for buyers in every transaction.</p>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-globe-africa"></i></div>
+                        <div class="value-text">
+                            <h3>Impact</h3>
+                            <p>We measure our success by the tangible, positive impact we create in farming communities and the broader agricultural ecosystem.</p>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon"><i class="fas fa-search"></i></div>
+                        <div class="value-text">
+                            <h3>Transparency</h3>
+                            <p>We maintain open, honest communication with all stakeholders and provide clear visibility into our processes and pricing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="index.html" class="footer-logo"><i class="fas fa-leaf"></i> Agro Link</a>
+                <p>Connecting Ghana's farmers directly to buyers for fair trade and sustainable agriculture since 2023.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Produce Listings</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Farmer Registration</a></li>
+                    <li><a href="#">Buyer Registration</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Vegetables</a></li>
+                    <li><a href="#">Fruits</a></li>
+                    <li><a href="#">Tubers</a></li>
+                    <li><a href="#">Grains</a></li>
+                    <li><a href="#">Livestock</a></li>
+                    <li><a href="#">Processed Foods</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Agric Street, Accra, Ghana</p>
+                <p><i class="fas fa-phone"></i> +233 123 456 789</p>
+                <p><i class="fas fa-envelope"></i> info@agrolink.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8am - 5pm</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Agro Link. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #f44336;"></i> for Ghana's Farmers</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const body = document.body;
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            hamburger.classList.toggle('hamburger-active');
+            body.classList.toggle('no-scroll');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('nav-active');
+                hamburger.classList.remove('hamburger-active');
+                body.classList.remove('no-scroll');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove('nav-active');
+                hamburger.classList.remove('hamburger-active');
+                body.classList.remove('no-scroll');
+            }
+        });
+    </script>
+</body>
+</html>

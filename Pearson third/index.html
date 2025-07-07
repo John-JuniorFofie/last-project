@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Link - Connect Farmers & Buyers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4CAF50;       /* Fresh Leaf Green */
+            --primary-dark: #3e8e41;  /* Darker Green */
+            --secondary: #8D6E63;     /* Soil Brown */
+            --accent: #FFEB3B;       /* Harvest Yellow */
+            --background: #FAFAFA;    /* Soft White */
+            --text: #212121;         /* Dark Charcoal */
+            --text-light: #757575;    /* Light Text */
+            --action: #25D366;       /* WhatsApp Green */
+            --out-of-stock: #F44336; /* Red for out of stock */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            transition: all 0.5s ease-in-out;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--action);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 1rem auto;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .feature-card p {
+            color: var(--text-light);
+        }
+        
+        .upload-section {
+            background-color: white;
+            padding: 4rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 5rem;
+        }
+        
+        .upload-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .image-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .image-upload:hover {
+            border-color: var(--primary);
+        }
+        
+        .image-upload i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .image-upload p {
+            color: var(--text-light);
+        }
+        
+        #imagePreview {
+            display: none;
+            max-width: 100%;
+            max-height: 300px;
+            margin: 1rem auto;
+            border-radius: 8px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .product-description {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+        
+        .product-contact {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .contact-methods {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .phone-btn {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .whatsapp-btn {
+            background-color: var(--action);
+            color: white;
+        }
+        
+        .phone-btn:hover,
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .testimonials {
+            background-color: var(--primary);
+            padding: 5rem 0;
+            color: white;
+        }
+        
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--accent);
+            opacity: 0.5;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .footer-social a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links h3, 
+        .footer-contact h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-links h3::after,
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.3rem 0;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .footer-contact p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+        
+        .footer-contact i {
+            margin-top: 3px;
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.5s ease-in-out;
+                z-index: 1000;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .nav-active {
+                right: 0;
+            }
+            
+            .hamburger-active .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .hamburger-active .line2 {
+                opacity: 0;
+            }
+            
+            .hamburger-active .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .hero {
+                height: 60vh;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .feature-card,
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo"><i class="fas fa-leaf"></i>Agro Link</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="produce.html">Produce Listings</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Connect Directly With Local Farmers</h1>
+            <p>Agro Link bridges the gap between farmers and buyers, ensuring fair prices and fresh produce</p>
+            <div>
+                <a href="#listings" class="btn">Browse Products</a>
+                <a href="#upload" class="btn btn-outline">Sell Your Produce</a>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <h3>Farmer Friendly</h3>
+                    <p>Easy platform for farmers to showcase their products and connect directly with buyers without middlemen.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <h3>Buyer Convenience</h3>
+                    <p>Find fresh, local produce directly from farmers in your area with transparent pricing and quality assurance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Fair Prices</h3>
+                    <p>Farmers get better prices while buyers pay less by eliminating unnecessary intermediaries in the supply chain.</p>
+                </div>
+            </div>
+
+            <div class="upload-section" id="upload">
+                <h2 class="section-title">Sell Your Farm Products</h2>
+                <p style="text-align: center; margin-bottom: 3rem; color: var(--text-light);">Fill this form to list your products on our platform</p>
+                
+                <form class="upload-form" id="productUploadForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="farmerName">Your Name</label>
+                            <input type="text" id="farmerName" name="farmerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp Number</label>
+                            <input type="tel" id="whatsapp" name="whatsapp">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" name="productName" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="vegetables">Vegetables</option>
+                                <option value="fruits">Fruits</option>
+                                <option value="tubers">Tubers</option>
+                                <option value="grains">Grains</option>
+                                <option value="livestock">Livestock Products</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price (GH₵)</label>
+                            <input type="number" id="price" name="price" step="0.01" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Product Description</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <div class="image-upload" id="imageUpload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload product image</p>
+                            <input type="file" id="productImage" name="productImage" accept="image/*" style="display: none;">
+                            <img id="imagePreview" alt="Product Preview">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">List My Product</button>
+                </form>
+            </div>
+
+            <div id="listings">
+                <h2 class="section-title">Featured Farm Products</h2>
+                <div class="products-grid">
+                    <!-- Sample Product 1 -->
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1582284540020-8acbe03f4924?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Fresh Tomatoes" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Fresh Tomatoes</h3>
+                            <p class="product-price">GH₵ 50 per crate</p>
+                            <p class="product-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Kumasi, Ashanti Region
+                            </p>
+                            <p class="product-description">Organically grown tomatoes from our family farm. Harvested fresh daily with no chemical pesticides.</p>
+                            <p class="product-contact">
+                                <i class="fas fa-user"></i>
+                                Kwame's Farm
+                            </p>
+                            <div class="contact-methods">
+                                <a href="tel:+233123456789" class="contact-btn phone-btn">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Call</span>
+                                </a>
+                                <a href="https://wa.me/233123456789" class="contact-btn whatsapp-btn">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Product 2 -->
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Ripe Plantain" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Ripe Plantain</h3>
+                            <p class="product-price">GH₵ 10 per bunch</p>
+                            <p class="product-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Accra, Greater Accra
+                            </p>
+                            <p class="product-description">Naturally ripened plantain, perfect for frying or boiling. Available in large quantities for wholesalers.</p>
+                            <p class="product-contact">
+                                <i class="fas fa-user"></i>
+                                Ama's Plantation
+                            </p>
+                            <div class="contact-methods">
+                                <a href="tel:+233987654321" class="contact-btn phone-btn">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Call</span>
+                                </a>
+                                <a href="https://wa.me/233987654321" class="contact-btn whatsapp-btn">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Product 3 -->
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Fresh Cassava" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Fresh Cassava</h3>
+                            <p class="product-price">GH₵ 30 per sack</p>
+                            <p class="product-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Tamale, Northern Region
+                            </p>
+                            <p class="product-description">High quality cassava suitable for fufu, gari and other products. We deliver to processing companies.</p>
+                            <p class="product-contact">
+                                <i class="fas fa-user"></i>
+                                Yaw's Cassava Farm
+                            </p>
+                            <div class="contact-methods">
+                                <a href="tel:+233555123456" class="contact-btn phone-btn">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Call</span>
+                                </a>
+                                <a href="https://wa.me/233555123456" class="contact-btn whatsapp-btn">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="testimonial-container">
+                <h2 class="section-title" style="color: white;">What Our Users Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Agro Link has transformed my farming business. I now get fair prices for my produce and connect directly with serious buyers.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Kwame Asante" class="author-img">
+                            <div class="author-info">
+                                <h4>Kwame Asante</h4>
+                                <p>Vegetable Farmer, Kumasi</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">As a restaurant owner, finding fresh local produce was always a challenge. Agro Link makes it so easy to connect with farmers.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Adwoa Mensah" class="author-img">
+                            <div class="author-info">
+                                <h4>Adwoa Mensah</h4>
+                                <p>Restaurant Owner, Accra</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">The platform is so easy to use. I can list my products in minutes and start receiving inquiries from buyers immediately.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Yaw Boateng" class="author-img">
+                            <div class="author-info">
+                                <h4>Yaw Boateng</h4>
+                                <p>Poultry Farmer, Tamale</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="index.html" class="footer-logo"><i class="fas fa-leaf"></i> Agro Link</a>
+                <p>Connecting Ghana's farmers directly to buyers for fair trade and sustainable agriculture since 2023.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Produce Listings</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#upload">Sell Your Produce</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Vegetables</a></li>
+                    <li><a href="#">Fruits</a></li>
+                    <li><a href="#">Tubers</a></li>
+                    <li><a href="#">Grains</a></li>
+                    <li><a href="#">Livestock</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Agric Street, Accra, Ghana</p>
+                <p><i class="fas fa-phone"></i> +233 123 456 789</p>
+                <p><i class="fas fa-envelope"></i> info@agrolink.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8am - 5pm</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Agro Link. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #f44336;"></i> for Ghana's Farmers</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const body = document.body;
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            hamburger.classList.toggle('hamburger-active');
+            body.classList.toggle('no-scroll');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('nav-active');
+                hamburger.classList.remove('hamburger-active');
+                body.classList.remove('no-scroll');
+            });
+        });
+        
+        // Image upload preview
+        const imageUpload = document.getElementById('imageUpload');
+        const productImage = document.getElementById('productImage');
+        const imagePreview = document.getElementById('imagePreview');
+        
+        imageUpload.addEventListener('click', () => {
+            productImage.click();
+        });
+        
+        productImage.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    imageUpload.querySelector('p').textContent = 'Change image';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Form submission
+        document.getElementById('productUploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the form data to a server
+            // For demonstration, we'll just show an alert
+            alert('Thank you for listing your product! It will be reviewed and published soon.');
+            this.reset();
+            imagePreview.style.display = 'none';
+            imageUpload.querySelector('p').textContent = 'Click to upload product image';
+        });
+    </script>
+</body>
+</html>
