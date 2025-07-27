@@ -119,20 +119,46 @@
             text-align: center;
             color: white;
             padding: 0 2rem;
+            
         }
         
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeslideTop;   
+            animation-duration: 2s;
+            
         }
-        
+       
+   @keyframes fadeslideTop {
+    0% {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
         .hero p {
             font-size: 1.3rem;
             max-width: 700px;
             margin-bottom: 2rem;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+             animation: fadeslidedown;   
+            animation-duration: 2s;
         }
+         @keyframes fadeslidedown {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
         
         .btn {
             display: inline-block;
@@ -146,8 +172,20 @@
             font-size: 1.1rem;
             transition: all 0.3s ease;
             cursor: pointer;
-        }
         
+           animation: fadeslidedown;   
+            animation-duration: 2s;
+        }
+         @keyframes fadeslidedown {
+    0% {
+      opacity: 0;
+      transform: translateX(-90px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+}
         .btn:hover {
             background-color: #128C7E;
             transform: translateY(-3px);
@@ -158,8 +196,20 @@
             background-color: transparent;
             border: 2px solid white;
             margin-left: 1rem;
+              animation: fadeslidedown;   
+            animation-duration: 2s;
         }
-        
+         
+         @keyframes fadeslidedown {
+    0% {
+      opacity: 0;
+      transform: translateX(-90px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+}
         .btn-outline:hover {
             background-color: rgba(255,255,255,0.1);
         }
@@ -632,7 +682,7 @@
             }
             
             .hero {
-                height: 60vh;
+                height: 100vh;
             }
             
             .hero h1 {
@@ -667,3 +717,8 @@
                 padding: 1.5rem;
             }
         }
+@media screen and (max-width:425px) {
+    .hero{
+        height: 100vh;
+    }
+}
